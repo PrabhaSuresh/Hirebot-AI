@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireBot AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --hirebot-purple: #9b87f5;
+      --hirebot-darkpurple: #7E69AB;
+      --hirebot-navy: #1A1F2C;
+      --hirebot-lightpurple: #D6BCFA;
+      --hirebot-blue: #1EAEDB;
+      --hirebot-gray: #8E9196;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --card-hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --section-spacing: 4rem;
+      --card-border-radius: 1rem;
+      --transition-standard: all 0.3s ease;
+      
+      /* Font variables */
+      --heading-font: 'Poppins', sans-serif;
+      --body-font: 'Inter', sans-serif;
+      --heading-weight-bold: 700;
+      --heading-weight-medium: 600;
+      --body-weight-regular: 400;
+      --body-weight-medium: 500;
+      --body-weight-bold: 600;
+      --letter-spacing-tight: -0.01em;
+      --letter-spacing-normal: 0;
+      --letter-spacing-wide: 0.02em;
+      --line-height-heading: 1.2;
+      --line-height-body: 1.6;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--body-font);
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+      color: #1A1F2C;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      line-height: var(--line-height-body);
+      font-weight: var(--body-weight-regular);
+      font-size: 16px;
+    }
+    
+    /* Background elements */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 60vmax;
+      height: 60vmax;
+      border-radius: 50%;
+      z-index: -1;
+    }
+    
+    body::before {
+      background: radial-gradient(rgba(155, 135, 245, 0.1), rgba(155, 135, 245, 0));
+      top: -20vmax;
+      left: -30vmax;
+      animation: float 15s ease-in-out infinite alternate;
+    }
+    
+    body::after {
+      background: radial-gradient(rgba(30, 174, 219, 0.1), rgba(30, 174, 219, 0));
+      bottom: -20vmax;
+      right: -30vmax;
+      animation: float 20s ease-in-out infinite alternate-reverse;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(5%, 5%) scale(1.05);
+      }
+    }
+    
+    .geometric-shape {
+      position: fixed;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(155, 135, 245, 0.07), rgba(30, 174, 219, 0.07));
+      z-index: -1;
+      filter: blur(8px);
+    }
+    
+    .shape-1 {
+      width: 25vmax;
+      height: 25vmax;
+      top: 10%;
+      right: -10%;
+      animation: float-slow 25s infinite alternate;
+    }
+    
+    .shape-2 {
+      width: 15vmax;
+      height: 15vmax;
+      bottom: 20%;
+      left: 5%;
+      animation: float-slow 20s infinite alternate-reverse;
+    }
+    
+    .shape-3 {
+      width: 20vmax;
+      height: 20vmax;
+      top: 50%;
+      left: 20%;
+      animation: float-slow 30s infinite alternate;
+    }
+    
+    @keyframes float-slow {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(20px) rotate(5deg);
+      }
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--heading-font);
+      line-height: var(--line-height-heading);
+      margin-bottom: 1rem;
+      color: var(--hirebot-navy);
+      letter-spacing: var(--letter-spacing-tight);
+    }
+    
+    h1 {
+      font-weight: var(--heading-weight-bold);
+    }
+    
+    h2 {
+      font-weight: var(--heading-weight-bold);
+    }
+    
+    h3 {
+      font-weight: var(--heading-weight-medium);
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      color: #4b5563;
+      line-height: var(--line-height-body);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(to right, var(--hirebot-darkpurple), var(--hirebot-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    
+    .uppercase {
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .subtle-text {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    
+    /* Section styling */
+    section, .section {
+      margin-bottom: var(--section-spacing);
+    }
+    
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem;
+      transition: var(--transition-standard);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .card:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-5px);
+    }
+    
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg, 
+        transparent, 
+        rgba(155, 135, 245, 0.03), 
+        transparent
+      );
+      transform: rotate(45deg);
+      animation: shimmer 5s infinite linear;
+      z-index: -1;
+    }
+    
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-50%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(50%) rotate(45deg);
+      }
+    }
+    
+    /* Header Styles */
+    header {
+      border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+      padding: 1.5rem 0;
+      margin-bottom: 2rem;
+      background: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo-icon {
+      position: relative;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-icon svg {
+      fill: none;
+      stroke: #1A1F2C;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    
+    .logo-brand-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #9b87f5;
+      letter-spacing: 0.05em;
+    }
+    
+    .logo-text {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #9b87f5;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #4b5563;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      letter-spacing: 0.01em;
+    }
+    
+    nav a:hover {
+      color: var(--hirebot-purple);
+    }
+    
+    .nav-link {
+      position: relative;
+      padding: 0.5rem 0;
+      margin: 0 0.75rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--hirebot-purple);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-button {
+      background-color: rgba(214, 188, 250, 0.2);
+      color: var(--hirebot-darkpurple);
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s ease;
+    }
+    
+    .nav-button:hover {
+      background-color: rgba(214, 188, 250, 0.3);
+    }
+    
+    /* Main Content Styles */
+    main {
+      padding: 3rem 1.5rem;
+    }
+    
+    .intro {
+      max-width: 50rem;
+      margin: 0 auto 4rem auto;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .intro h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--hirebot-darkpurple), var(--hirebot-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(126, 105, 171, 0.3);
+    }
+    
+    @media (min-width: 768px) {
+      .intro h1 {
+        font-size: 3.25rem;
+      }
+    }
+    
+    .intro p {
+      font-size: 1.25rem;
+      color: #4b5563;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+    
+    /* Form Styles */
+    .form-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--card-border-radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      max-width: 64rem;
+      margin: 0 auto 4rem auto;
+      animation: fadeIn 1s ease-out;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      transition: var(--transition-standard);
+    }
+    
+    .form-card:hover {
+      box-shadow: var(--card-hover-shadow);
+    }
+    
+    .form-card h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      color: var(--hirebot-darkpurple);
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .form-card h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5rem;
+      height: 3px;
+      background: linear-gradient(to right, var(--hirebot-purple), var(--hirebot-blue));
+      border-radius: 3px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+    
+    .input-wrapper {
+      position: relative;
+      transition: var(--transition-standard);
+    }
+    
+    .input-wrapper:focus-within {
+      transform: translateY(-2px);
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      transition: color 0.3s ease;
+    }
+    
+    .input-wrapper:focus-within .input-icon {
+      color: var(--hirebot-purple);
+    }
+    
+    .form-input, .form-select {
+      width: 100%;
+      border: 1px solid rgba(209, 213, 219, 0.5);
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 0.5rem;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-input.with-icon, .form-select.with-icon {
+      padding-left: 2.75rem;
+    }
+    
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--hirebot-purple);
+      box-shadow: 0 0 0 3px rgba(155, 135, 245, 0.25);
+      background-color: white;
+    }
+    
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1em;
+    }
+    
+    .file-upload {
+      border: 2px dashed rgba(209, 213, 219, 0.6);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition-standard);
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .file-upload:hover, .file-upload:focus-within {
+      border-color: var(--hirebot-purple);
+      background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.01);
+    }
+    
+    .file-upload input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .file-upload-icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 1rem auto;
+      color: var(--hirebot-purple);
+      filter: drop-shadow(0 2px 5px rgba(155, 135, 245, 0.25));
+    }
+    
+    .file-upload p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+    
+    .file-upload small {
+      display: block;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+    
+    .file-preview {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: rgba(214, 188, 250, 0.2);
+      border-radius: 9999px;
+      display: inline-flex;
+      font-size: 0.875rem;
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+      color: var(--hirebot-darkpurple);
+      box-shadow: 0 2px 5px rgba(155, 135, 245, 0.15);
+    }
+    
+    .form-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: linear-gradient(to right, var(--hirebot-purple), var(--hirebot-darkpurple));
+      color: white;
+      font-weight: 600;
+      padding: 0.875rem 2rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 1rem auto 0 auto;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(155, 135, 245, 0.3);
+    }
+    
+    .form-button:hover {
+      box-shadow: 0 6px 20px rgba(155, 135, 245, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .form-button:active {
+      transform: scale(0.98);
+    }
+    
+    .form-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      top: 0;
+      left: -100%;
+      transform: skewX(-15deg);
+      transition: all 0.5s ease;
+    }
+    
+    .form-button:hover::after {
+      left: 100%;
+    }
+    
+    /* User Profile Styles */
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--card-border-radius);
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+      animation: slideIn 0.5s ease-out forwards;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      transition: var(--transition-standard);
+    }
+    
+    .profile-card:hover {
+      box-shadow: var(--card-hover-shadow);
+    }
+    
+    .profile-card h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      color: var(--hirebot-darkpurple);
+      position: relative;
+      padding-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .profile-card h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5rem;
+      height: 3px;
+      background: linear-gradient(to right, var(--hirebot-purple), var(--hirebot-blue));
+      border-radius: 3px;
+    }
+    
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .profile-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .profile-section h3 {
+      font-size: 1.25rem;
+      color: var(--hirebot-darkpurple);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .profile-section h3 svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      stroke: var(--hirebot-purple);
+    }
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    
+    .skill-badge {
+      background-color: rgba(214, 188, 250, 0.15);
+      border: 1px solid rgba(214, 188, 250, 0.3);
+      color: var(--hirebot-darkpurple);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      transition: var(--transition-standard);
+      box-shadow: 0 2px 4px rgba(155, 135, 245, 0.1);
+    }
+    
+    .skill-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(155, 135, 245, 0.15);
+      background-color: rgba(214, 188, 250, 0.25);
+    }
+    
+    .experience-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #4b5563;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    
+    .experience-item svg {
+      color: var(--hirebot-purple);
+    }
+    
+    .role-badge {
+      background-color: rgba(243, 244, 246, 0.7);
+      color: #4b5563;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: var(--transition-standard);
+    }
+    
+    .role-badge:hover {
+      background-color: rgba(243, 244, 246, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Job Cards Styles */
+    .jobs-section {
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .jobs-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      color: var(--hirebot-darkpurple);
+      position: relative;
+      padding-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .jobs-section h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5rem;
+      height: 3px;
+      background: linear-gradient(to right, var(--hirebot-purple), var(--hirebot-blue));
+      border-radius: 3px;
+    }
+    
+    .job-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .job-card {
+      background: var(--card-bg);
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: var(--transition-standard);
+      margin-bottom: 0;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+    }
+    
+    .job-card:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-5px);
+    }
+    
+    .job-card-content {
+      padding: 2rem;
+    }
+    
+    .job-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+      padding-bottom: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .job-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    
+    .job-title-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--hirebot-navy);
+    }
+    
+    .job-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .job-badge-remote {
+      background-color: var(--hirebot-purple);
+      color: white;
+    }
+    
+    .job-badge-hybrid {
+      background-color: rgba(79, 209, 197, 0.15);
+      color: #0e7c74;
+    }
+    
+    .job-badge-onsite {
+      background-color: rgba(243, 244, 246, 0.7);
+      color: #4b5563;
+    }
+    
+    .job-company {
+      color: #4b5563;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .match-score {
+      position: relative;
+      width: 6rem;
+      height: 6rem;
+    }
+    
+    .score-ring {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .score-bg {
+      fill: none;
+      stroke: rgba(229, 231, 235, 0.5);
+      stroke-width: 8;
+    }
+    
+    .score-value {
+      fill: none;
+      stroke: #4ade80;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1.5s ease-in-out;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      filter: drop-shadow(0 0 3px rgba(74, 222, 128, 0.3));
+    }
+    
+    .score-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .score-percent {
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .score-label {
+      font-size: 0.75rem;
+      color: #4b5563;
+      font-weight: 500;
+      margin-top: -0.25rem;
+    }
+    
+    .job-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+    
+    .job-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(243, 244, 246, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: var(--transition-standard);
+    }
+    
+    .job-info-item:hover {
+      background-color: rgba(243, 244, 246, 0.8);
+      transform: translateY(-2px);
+    }
+    
+    .job-skills {
+      margin-top: 1.5rem;
+    }
+    
+    .job-skills h4 {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .job-details {
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(229, 231, 235, 0.3);
+      padding-top: 1.5rem;
+    }
+    
+    .job-details-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.75rem 0;
+      color: var(--hirebot-darkpurple);
+      transition: var(--transition-standard);
+    }
+    
+    .job-details-trigger:hover {
+      color: var(--hirebot-purple);
+    }
+    
+    .job-details-content {
+      display: none;
+      padding-top: 1rem;
+    }
+    
+    .job-details-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .job-details-section h4 {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .job-details-section p {
+      font-size: 0.95rem;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+    
+    .job-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .job-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem 1rem;
+      background-color: rgba(214, 188, 250, 0.1);
+      border-radius: 0.75rem;
+      transition: var(--transition-standard);
+      border: 1px solid rgba(214, 188, 250, 0.2);
+    }
+    
+    .job-metric:hover {
+      background-color: rgba(214, 188, 250, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(155, 135, 245, 0.1);
+    }
+    
+    .job-metric-label {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .job-metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hirebot-darkpurple);
+    }
+    
+    .job-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      background: linear-gradient(to right, var(--hirebot-purple), var(--hirebot-darkpurple));
+      color: white;
+      font-weight: 600;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      margin-top: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-standard);
+      box-shadow: 0 4px 15px rgba(155, 135, 245, 0.2);
+      letter-spacing: 0.01em;
+    }
+    
+    .job-link:hover {
+      box-shadow: 0 6px 20px rgba(155, 135, 245, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .job-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      top: 0;
+      left: -100%;
+      transform: skewX(-15deg);
+      transition: all 0.5s ease;
+    }
+    
+    .job-link:hover::after {
+      left: 100%;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background-color: var(--hirebot-navy);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+    
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    
+    .footer-branding {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-tagline {
+      font-size: 0.875rem;
+      color: #9ca3af;
+    }
+    
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    
+    .footer-bottom {
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      width: 100%;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      color: #9ca3af;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--hirebot-purple);
+    }
+    
+    /* Loading Spinner */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .loading-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 24rem;
+      width: 100%;
+    }
+    
+    .spinner {
+      position: relative;
+      width: 5rem;
+      height: 5rem;
+    }
+    
+    .spinner-outer {
+      width: 100%;
+      height: 100%;
+      border: 4px solid rgba(214, 188, 250, 0.3);
+      border-radius: 50%;
+    }
+    
+    .spinner-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 4px solid transparent;
+      border-top-color: var(--hirebot-purple);
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+    
+    .loading-message {
+      margin-top: 1.5rem;
+      font-size: 1.125rem;
+      color: #4b5563;
+      text-align: center;
+    }
+    
+    .loading-dots {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .loading-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: var(--hirebot-purple);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Interactive elements */
+    .job-details-trigger.active .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    .job-details-trigger.active + .job-details-content {
+      display: block;
+    }
+
+    /* About Section Styles */
+    .about-section {
+      margin-bottom: 3rem;
+    }
+    
+    .about-section h3 {
+      font-size: 1.25rem;
+      color: var(--hirebot-darkpurple);
+      margin: 1.5rem 0 1rem;
+    }
+    
+    .about-section p {
+      color: #4b5563;
+      line-height: 1.6;
+    }
+    
+    .steps-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    @media (min-width: 768px) {
+      .steps-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .step-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: rgba(155, 135, 245, 0.1);
+      color: var(--hirebot-purple);
+    }
+    
+    .step-content h4 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--hirebot-darkpurple);
+    }
+    
+    .about-footer {
+      font-style: italic;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="geometric-shape shape-1"></div>
+  <div class="geometric-shape shape-2"></div>
+  <div class="geometric-shape shape-3"></div>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-container">
+            <div class="logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                <path d="M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+          </div>
+          <h1 class="logo-text">HireBot AI</h1>
+        </div>
+        <nav>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact Us</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <!-- Intro Section -->
+      <div class="intro">
+        <h1>Your AI-Powered Job Matching Agent</h1>
+        <p>HireBot AI is an AI agent for people seeking jobs or internships. Simply upload your CV to find matching opportunities based on your skills and experience - no delay, no hassle.</p>
+      </div>
+
+      <!-- About Section -->
+      <div id="about" class="about-section">
+        <div class="form-card">
+          <h2>About HireBot AI</h2>
+          <div class="about-content">
+            <p>HireBot AI is an advanced job matching platform powered by artificial intelligence that helps job seekers find relevant opportunities quickly and efficiently.</p>
+            
+            <h3>How It Works</h3>
+            <div class="steps-container">
+              <div class="step">
+                <div class="step-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4>Upload Your CV</h4>
+                  <p>Submit your resume in PDF or text format.</p>
+                </div>
+              </div>
+              
+              <div class="step">
+                <div class="step-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4>AI Analysis</h4>
+                  <p>Our AI extracts your skills and experience from your CV.</p>
+                </div>
+              </div>
+              
+              <div class="step">
+                <div class="step-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4>Job Matching</h4>
+                  <p>We find jobs that match your profile and rank them based on relevance.</p>
+                </div>
+              </div>
+            </div>
+            
+            <p class="about-footer">HireBot AI uses cutting-edge AI technology to improve job search efficiency and match candidates with the most relevant opportunities.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Search Form -->
+      <form class="form-card" method="POST" enctype="multipart/form-data">
+        <h2>Find Your Perfect Match</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="role">Role</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="7" width="18" height="14" rx="2" />
+                <path d="M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7" />
+              </svg>
+              <input id="role" name="role" type="text" placeholder="e.g., Software Engineer" class="form-input with-icon" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <input id="location" name="location" type="text" placeholder="e.g., United States" class="form-input with-icon" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="job_type">Job Type</label>
+            <select id="job_type" name="job_type" class="form-select" required>
+              <option value="Job">Full-time Job</option>
+              <option value="Internship">Internship</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="selection_type">Work Type</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <select id="selection_type" name="selection_type" class="form-select with-icon" required>
+                <option value="Onsite">Onsite</option>
+                <option value="Remote">Remote</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="file-upload">
+          <input type="file" id="cv" name="cv" accept=".pdf,.txt" required>
+          <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="12" y1="18" x2="12" y2="12" />
+            <line x1="9" y1="15" x2="15" y2="15" />
+          </svg>
+          <p>Drag and drop your CV here, or click to browse</p>
+          <small>PDF or Text file</small>
+          <div class="file-preview" style="display: none;">resume.pdf</div>
+        </div>
+
+        <button type="submit" class="form-button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Search Jobs
+        </button>
+      </form>
+
+      {% if error_message %}
+      <div class="alert alert-danger" style="background-color: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+        {{ error_message }}
+      </div>
+      {% endif %}
+
+      <!-- User Profile -->
+      {% if user_skills %}
+      <div class="profile-card card">
+        <h2>Your Professional Profile</h2>
+        <div class="profile-grid">
+          <div class="profile-section">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+              Skills
+            </h3>
+            <div class="skills-list">
+              {% for skill in user_skills %}
+              <span class="skill-badge">{{ skill }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="profile-section">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+              Experience
+            </h3>
+            <div class="experience-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>{{ user_experience.years_experience }} years</span>
+            </div>
+            <div class="skills-list">
+              {% for role in user_experience.job_roles %}
+              <span class="role-badge">{{ role }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Job Results -->
+      {% if jobs %}
+      <div class="jobs-section">
+        <h2>Your Job Matches</h2>
+        <div class="job-cards">
+          {% for job in jobs %}
+          <div class="job-card">
+            <div class="job-card-content">
+              <div class="job-header">
+                <div class="job-title-section">
+                  <h3>
+                    {{ job.title }}
+                    <span class="job-badge job-badge-{{ job.work_type.lower() }}">{{ job.work_type }}</span>
+                  </h3>
+                  <p class="job-company">{{ job.company }}</p>
+                </div>
+                <div class="match-score">
+                  <div class="score-ring">
+                    {% set combined_score = ((job.experience_score + job.skill_score) / 2) | int %}
+                    {% set score_offset = 251.2 - ((combined_score / 100) * 251.2) %}
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                      <circle class="score-bg" cx="50" cy="50" r="40"></circle>
+                      <circle class="score-value" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="{{ score_offset }}"></circle>
+                    </svg>
+                    <div class="score-text">
+                      <span class="score-percent">{{ combined_score }}%</span>
+                      <span class="score-label">Match</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="job-info">
+                <div class="job-info-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <span>{{ job.location }}</span>
+                </div>
+                <div class="job-info-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span>{{ job.work_type }}</span>
+                </div>
+              </div>
+
+              <div class="job-skills">
+                <h4>Required Skills:</h4>
+                <div class="job-skills-list">
+                  {% for skill in job.skills %}
+                  <span class="skill-badge">{{ skill }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="job-details">
+                <div class="job-details-trigger">
+                  View Details
+                  <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                <div class="job-details-content">
+                  <div class="job-details-section">
+                    <h4>Description:</h4>
+                    <p>
+                    {% if job.description|length > 300 %}
+                      {% set truncated_desc = job.description[:300] %}
+                      {% set last_period = truncated_desc.rfind('.') %}
+                      {% if last_period > 150 %}
+                        {{ job.description[:last_period+1] }}
+                        <span style="color: #6b7280;">... (click "View Job" for full details)</span>
+                      {% else %}
+                        {{ job.description[:300] }}...
+                      {% endif %}
+                    {% else %}
+                      {{ job.description }}
+                    {% endif %}
+                    </p>
+                  </div>
+
+                  <div class="job-metrics">
+                    <div class="job-metric">
+                      <span class="job-metric-label">Skills Match</span>
+                      <span class="job-metric-value">{{ job.skill_score }}%</span>
+                    </div>
+                    <div class="job-metric">
+                      <span class="job-metric-label">Experience Match</span>
+                      <span class="job-metric-value">{{ job.experience_score }}%</span>
+                    </div>
+                  </div>
+
+                  <a href="{{ job.url }}" target="_blank" class="job-link">
+                    View Job
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 2rem;">
+          <p style="max-width: 32rem; margin: 0 auto; font-size: 0.875rem; color: #6b7280;">
+            These matches are based on your CV and the job requirements. 
+            Higher match scores indicate a better fit for your skills and experience.
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-branding">
+          <div class="footer-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="7" width="18" height="14" rx="2" />
+              <path d="M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7" />
+            </svg>
+            <p class="footer-tagline">Your AI-powered job matchmaker</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 HireBot AI by Prabha Suresh. All rights reserved.</p>
+          <div class="social-links">
+            <a href="https://github.com/PrabhaSuresh" target="_blank" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/prabha-suresh-47b6b2293" target="_blank" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="mailto:prabhasuresh2006@gmail.com" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Loading Spinner (hidden by default) -->
+  <div class="loading-overlay" style="display: none;">
+    <div class="loading-container">
+      <div class="spinner">
+        <div class="spinner-outer"></div>
+        <div class="spinner-inner"></div>
+      </div>
+      <p class="loading-message">Finding your perfect job matches...</p>
+      <div class="loading-dots">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for basic interactions -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // File upload preview
+      const fileInput = document.getElementById('cv');
+      const filePreview = document.querySelector('.file-preview');
+      
+      fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+          filePreview.textContent = this.files[0].name;
+          filePreview.style.display = 'inline-flex';
+        } else {
+          filePreview.style.display = 'none';
+        }
+      });
+      
+      // Job details toggle
+      const detailsTriggers = document.querySelectorAll('.job-details-trigger');
+      
+      detailsTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          this.classList.toggle('active');
+        });
+      });
+      
+      // Form submission - show loading spinner
+      const form = document.querySelector('form');
+      const loadingOverlay = document.querySelector('.loading-overlay');
+      
+      form.addEventListener('submit', function() {
+        // Show loading overlay
+        loadingOverlay.style.display = 'flex';
+        
+        // Set a localStorage flag to indicate form was submitted
+        localStorage.setItem('formSubmitted', 'true');
+      });
+      
+      // Check if we just arrived from a form submission
+      if (localStorage.getItem('formSubmitted')) {
+        // If we have jobs, scroll to them
+        const jobsSection = document.querySelector('.jobs-section');
+        if (jobsSection) {
+          jobsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Clear the flag
+        localStorage.removeItem('formSubmitted');
+      }
+      
+      // Calculate and animate score rings on page load
+      function animateScoreRings() {
+        const scoreValues = document.querySelectorAll('.score-value');
+        
+        scoreValues.forEach(scoreValue => {
+          const scoreText = scoreValue.closest('.score-ring').querySelector('.score-percent').textContent;
+          const score = parseInt(scoreText);
+          const circumference = 2 * Math.PI * 40; // 40 is the radius of the circle
+          const offset = circumference - (score / 100) * circumference;
+          
+          // Start with full circle (invisible)
+          scoreValue.style.strokeDashoffset = circumference;
+          
+          // After a small delay, animate to the correct value
+          setTimeout(() => {
+            scoreValue.style.strokeDashoffset = offset;
+          }, 300);
+        });
+      }
+      
+      // Run animations
+      animateScoreRings();
+    });
+  </script>
+</body>
+</html>
