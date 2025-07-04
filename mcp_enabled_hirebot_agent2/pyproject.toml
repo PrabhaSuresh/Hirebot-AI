@@ -1,0 +1,26 @@
+[project]
+name = "MCP_Enabled_Hirebot"
+version = "0.1.0"
+description = "AI-powered multi-agent system (Hirebot) that helps job seekers discover relevant LinkedIn jobs by simply uploading their resume"
+authors = [
+  { name = "Prabhasuresh", email = "prabhasuresh2006@email.com" }
+]
+dependencies = [
+  "flask",
+  "mcp @ git+https://github.com/modelcontextprotocol/python-sdk.git",
+  "together",
+  "pdfplumber",
+  "python-dotenv",
+  "apify-client",
+  "pydantic"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["hirebot_ai"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
